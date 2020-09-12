@@ -1,0 +1,21 @@
+service: hello-lambda
+plugins:
+  - serverless-localstack
+provider:
+    name: aws
+    runtime: go1.x
+    stage: ${opt:stage, 'local'}
+custom:
+  localstack:
+    debug: true
+    stages:
+      # list of stages for which the plugin should be enabled
+      - local
+package:
+functions:
+  hello-lambda:
+    handler: main
+    events:
+      - http:
+          path: hello
+          method: get
